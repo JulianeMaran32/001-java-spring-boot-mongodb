@@ -13,7 +13,11 @@
 > `return ResponseEntity.ok().body(list);`  
 > `ok()`: instância o ResponseEntity já com o código de resposta HTTP que é SUCCESS   
 > `body()`: trás no corpo da requisição a lista 
+> 
 
+* listDto 
+
+> `listDTO` recebe a conversao de cada elemento da lista original para dto; instrução lambda que vai ser: lista original ponto stream, para transformar em uma `.stream()`, que é uma coleção compatível com as expressões **lambda**; chamar o método `.map()` que vai pegar cada objeto x da lista original e para cada objeto desse que será um usuário vamos retornar um novo `UserDTO` e passando o x como argumento; para finalizar, precisamos voltar o `.stream()` para uma lista.
 
 <h2> Class UserRepository </h2>
 
@@ -118,3 +122,36 @@ Resource -> Service -> Repository
 
 O Resource chama o Service que chama o Repository
 
+
+<h2> Class Instantiation </h2>
+
+> Nesta classe é realizada a operação de instanciação da base de dados.    
+> Criamos um subpaconte chamado Config, dentro dele foi criada a classe `Instantiation` que implementa `CommandLineRunner`.  
+
+
+<h2> Padrão DTO </h2>
+
+> DTO (*Data Transfer Object*): é um objeto de transferência de dados, ou seja, carrega os dados das entidades de forma simples, podendo, inclusive, "projetar" apenas alguns dados da entidade original.   
+
+
+<h2> CRUD e Métodos </h2>
+
+* CREATE
+
+> Inserir, criar novos dados para serem inseridos no banco, todos os dados serão inseridos, porém o ID deverá ser gerado automaticamente pelo software.
+> Método: POST 
+
+* READ  
+
+> Listar, obter, ler (Read) os dados, por meio do ID ou outro(s) atributo(s).
+> Método: GET  
+
+* UPDATE   
+
+> Atualizar os dados existentes, aqui podemos permitir que todos os dados sejam atualizados, como podemos restringir os dados que podem ser atualizados.
+> Método: PUT
+
+* DELETE 
+
+> Permite que os dados sejam deletados.  
+> Método: DELETE
