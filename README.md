@@ -13,11 +13,7 @@
 > `return ResponseEntity.ok().body(list);`  
 > `ok()`: instância o ResponseEntity já com o código de resposta HTTP que é SUCCESS   
 > `body()`: trás no corpo da requisição a lista 
-> 
 
-* listDto 
-
-> `listDTO` recebe a conversao de cada elemento da lista original para dto; instrução lambda que vai ser: lista original ponto stream, para transformar em uma `.stream()`, que é uma coleção compatível com as expressões **lambda**; chamar o método `.map()` que vai pegar cada objeto x da lista original e para cada objeto desse que será um usuário vamos retornar um novo `UserDTO` e passando o x como argumento; para finalizar, precisamos voltar o `.stream()` para uma lista.
 
 <h2> Class UserRepository </h2>
 
@@ -155,3 +151,19 @@ O Resource chama o Service que chama o Repository
 
 > Permite que os dados sejam deletados.  
 > Método: DELETE
+
+<h2> Padrão DTO </h2>
+
+* Class UserResource
+
+> `listDTO` recebe a conversao de cada elemento da lista original para dto; instrução lambda que vai ser: lista original ponto stream, para transformar em uma `.stream()`, que é uma coleção compatível com as expressões **lambda**; chamar o método `.map()` que vai pegar cada objeto x da lista original e para cada objeto desse que será um usuário vamos retornar um novo `UserDTO` e passando o x como argumento; para finalizar, precisamos voltar o `.stream()` para uma lista.
+
+<h2> Obter usuário por ID </h2>
+
+* subpacote: service.exception   
+* class: ObjectNotFoundException   
+
+
+
+
+
