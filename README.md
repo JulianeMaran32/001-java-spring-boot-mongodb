@@ -5,7 +5,7 @@
 * Package: Project Lombok  
 * Postman   
 
-<h2> Classe UserResource </h2>
+<h2> Class UserResource </h2>
 
 > Método GET findAll lista todos os usuários   
 > `ResponseEntity` encapsula toda uma estrutura que retorna response HTTP com possíveis erros e cabeçalhos  
@@ -15,13 +15,11 @@
 > `body()`: trás no corpo da requisição a lista 
 
 
-<h2> Classe UserRepository </h2>
+<h2> Class UserRepository </h2>
 
 > Faz as operações básicas como adicionar, criar, deletar, atualizar etc.     
 
-
-
-<h2> Classe UserService </h2>
+<h2> Class UserService </h2>
 
 > serviço responsável por trabalhar com usuários    
 > Service conversa com o Repository
@@ -31,7 +29,7 @@
 > Para que o MongoDB reconheça a classe, devemos incluir `@Document` em cima da classe User e `@Id` logo acima do atributo id, também da classe User.  
 > A camada REST conversa com o Service   
 
-<h2>Dependência: Project Lombok</h2>
+<h2> Dependency: Project Lombok</h2>
 
 > Anotações que fornecem os métodos `getters` e `setters` para atributos privados.  
 > Essas anotaçõe podem ter um parâmetros para indicar o tipo de acesso aos dados (public ou protected).   
@@ -49,7 +47,7 @@
 > Podendo ser personalizado os atributos que serão validos.  
 
 ```java
-@@EqualsAndHashCode(exclude{"dataNascimento", "idade"})
+@EqualsAndHashCode(exclude{"dataNascimento", "idade"})
 ```
 
 >  
@@ -71,18 +69,14 @@ Exemplo, utilizando toda as anotações citadas acima:
 @ToString
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode
-public class Pessoa {
-    
-    private String nome;
-    private String cpf;
-    private String apelido;
-    private Date dataNascimento;
-    private int idade;
-    @NonNull
-    private Endereco endereco;
+public class User {
+
+	private String id;
+	private String nome;
+	private String email;
 
 }
 ```
@@ -92,15 +86,13 @@ public class Pessoa {
 ```java
 @Component
 @RequiredArgsConstructor
-public class PessoaGatewayImpl {
-    
-    private final PessoaRepository pessoaRepository;
-    
-    public void save(Pessoa pessoa){
-        pessoaRepository.save(pessoa);
-    }
-    
-}s
+public class User{
+
+	private String id;
+	private String nome;
+	private String email;
+
+}
 ```
 
 > `@Slf4j`: Cria o atributo `private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger (PessoaGatewayImpl.class)`  
@@ -121,3 +113,8 @@ public class PessoaGatewayImpl {
 
 }
 ```
+
+Resource -> Service -> Repository
+
+O Resource chama o Service que chama o Repository
+
