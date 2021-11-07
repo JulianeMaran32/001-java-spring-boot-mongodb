@@ -2,6 +2,7 @@ package com.jvm.project.ws.workshopmongo.services;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,8 +17,8 @@ public class PostService {
 	@Autowired
 	private PostRepository repo;
 	
-	public Post findById(String id) {
-		Post user = repo.findById(id);
+	public Optional<Post> findById(String id) {
+		Optional<Post> user = repo.findById(id);
 		if (user == null) {
 			throw new ObjectNotFoundException("Objeto não encontrado");
 		}
