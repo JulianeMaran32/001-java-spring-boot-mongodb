@@ -21,84 +21,62 @@ Prof. Dr. Nelio Alves
 	<li>Realizar consultas com Spring Data e MongoRepository</li>
 </ul>
 
+------------------------------------
+
 <h4>Ferramentas utilizadas </h4>
 
 * IDE: Spring Tool Suite for Eclipse    
 * Database: MongoDB    
 * Postman   
 
+------------------------------------
 
 <h4> Instalação do MongoDB </h4>
 
-**Checklist Windows:**
+<h6>Checklist Windows:</h6>
 
 * [MongoDB](https://www.mongodb.com) -> Download -> Community Server
 * Baixar e realizar a instalação com opção "Complete"
-	
-> ATENÇÃO: optaremos no curso por NÃO instalar o Compass por enquanto
-	
-* [Docs MongoDB](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/) > Set up the MongoDB environment
-* Criar pasta `\data\db`
+* Instalação do [MongoDB Compass](https://www.mongodb.com/products/compass)
+* [Docs MongoDB](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/) > Set up the MongoDB environmen
+* Criar pasta `\data\db
 * Acrescentar em PATH: `C:\Program Files\MongoDB\Server\3.6\bin` (adapte para sua versão)
 * Testar no terminal: `mongod`
 
-**Checklist Mac:**
+<h6>Checklist Mac:</h6>
 
-* [Docs MongoDB for Mac](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/)
-* Instalar [brew](https://brew.sh) > executar o comando apresentado na primeira página
-* Instalar o MongoDB:
-
-```
-brew install mongodb
-```
-
-* Criar pasta /data/db: 
-	
-```
-sudo mkdir -p /data/db
-```
-	
-* Liberar acesso na pasta criada
+* [Docs MongoDB for Mac](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
+* Instalar [brew](https://brew.sh) > executar o comando apresentado na primeira págin
+* Instalar o MongoDB: `brew install mongod``
+* Criar pasta /data/db: `sudo mkdir -p /data/d``
+* Liberar acesso na pasta criada: `whoami` (para ver seu nome de usuário, exemplo: nelio)   
 
 ```
-whoami (para ver seu nome de usuário, exemplo: nelio)
 sudo chown -Rv nelio /data/db
-```
+````
 
-* Testar no terminal: 
+* Testar no terminal: `mongo`
 
-```
-mongod
-```
-
-<h4> Instalação do Mongo Compass</h4>
-
-[MongoDB Compass](https://www.mongodb.com/products/compass)
-
+------------------------------------
 
 <h4> Primeiro commit - projeto criado </h4> 
 
 
 > Erro comum: arquivo corrompido do Maven (invalid LOC header)
 > Recomendação: apague os arquivos e voltar ao STS e deixar o Maven refazer o download    
-
-* [Vídeo Youtube](https://www.youtube.com/watch?v=FnI1oXbDtOg)    
-
+>
+> Ver mais: [Vídeo Youtube](https://www.youtube.com/watch?v=FnI1oXbDtOg)    
+>
 > File -> New -> Spring Starter Project  
   - Escolher somente o pacote Web por enquanto   
 
 > Rodar o projeto e testar: http://localhost:8080  
-> Se quiser mudar a porta padrão do projeto, incluir em `application.properties`:  
-
-
-```
-server.port=${port:8081}
-```
+> Para alterar a porta padrão, deve incluir no arquivo `application.properties` a seguinte linha: `server.port=${port:8081}`    
 
 * Na criação do projeto, inclui as dependências `DevTools`, `Spring Web` e `MongoDB` (ver pom.xml do projeto).  
 * Após a criação, inclui a dependência do Lombok, o qual utilizo nas classes "User" e "UserDTO".  
 
-
+------------------------------------
 
 <h4> Entity User e REST funcionando </h4>
 
@@ -111,6 +89,7 @@ server.port=${port:8081}
 * hashCode e equals (implementação padrão: somente id)    
 * Serializable (padrão: 1L)    
 
+> Neste projeto foi utilizado o Lombok, ver tópico abaixo:
 
 ------------------------------------
 
@@ -144,7 +123,6 @@ server.port=${port:8081}
 @AllArgsConstructor(access = AccessLevel.PRIVATE, staticName = "of")
 ```
 
->  
 > `@NoArgsConstructor` - construtor vazio   
 
 Exemplo, utilizando as anotações citadas acima:  
@@ -222,13 +200,18 @@ public class UserResource {
 
 <h4>Conectando ao MongoDB com Repository e Service </h4>
 
-**Referências:**  
+<h6> Referências </h6>
 
 * Spring Docs: [common application properties](https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html)    
 * Spring Docs: [boot features nosql](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-nosql.html)     
 * Stackoverflow: [mongodb](https://stackoverflow.com/questions/38921414/mongodb-what-are-the-default-user-and-password)    
 
-* Em `pom.xml`, incluir a dependência do MongoDB:  
+
+<h6> Checklist: </h6>
+
+<ul>
+	<li>Em `pom.xml`, incluir a dependência do MongoDB:</li>
+</ul>
 
 ```xml
 <dependency>
@@ -237,32 +220,58 @@ public class UserResource {
 </dependency>
 ```
 
-* No pacote `repository`, criar a interface `UserRepository`
-* No pacote services, criar a classe `UserService` com um método `findAll`
-* Em `User`, incluir a anotação `@Document` e `@Id` para indicar que se trata de uma coleção do MongoDB
-* Em `UserResource`, refatorar o código, usando o `UserService` para buscar os usuários
-* Em `application.properties`, incluir os dados de conexão com a base de dados:  
+<ul>
+	<li>No pacote repository, criar a interface UserRepository</li>
+	<li>No pacote services, criar a classe `UserService` com um método `findAll`</li>
+	<li>Em `User`, incluir a anotação `@Document` e `@Id` para indicar que se trata de uma coleção do MongoDB</li>
+	<li>Em `UserResource`, refatorar o código, usando o `UserService` para buscar os usuários</li>
+	<li>Em `application.properties`, incluir os dados de conexão com a base de dados:</li>
+</ul>
+
 
 ```
 spring.data.mongodb.uri=mongodb://localhost:27017/workshop_mongo   
 ```
 
-* Subir o MongoDB (comando `mongod`)   
-* Usando o MongoDB Compass:   
-  - Criar base de dados: `workshop_mongo`
-  - Criar coleção: `user`   
-  - Criar alguns documentos user manualmente   
-* Testar o endpoint `/users`   
+<ul>
+	<li>Subir o MongoDB (comando `mongod`)</li>
+	<li>Usando o MongoDB Compass:
+		<ul>
+			<li>Criar base de dados: `workshop_mongo`</li>
+			<li>Criar coleção: `user`</li>
+			<li>Criar alguns documentos user manualmente</li>
+		</ul>
+	</li>
+	<li>Testar o endpoint `/users`</li>
+</ul>
 
 
 
+--------------------------
 
+<h2> Operação de instanciação da base de dados </h2>
 
+```java
+userReposiroty.saveAll(Arrays.asList(maria, alex, bob));
+```
 
+<h6>Checklist</h6>
 
+<ul>
+	<li>No subpacote config, criar uma classe de configuração Instantiation que implemente CommandlLineRunner</li>
+	<li>Dados para copiar:</li>
+</ul>
 
+```java
+User maria = new User(null, "Maria Brown", "maria@gmail.com");
+User alex = new User(null, "Alex Green", "alex@gmail.com");
+User bob = new User(null, "Bob Grey", "bob@gmail.com");
+```
 
-<h2> Class UserResource </h2>
+--------------------------
+
+<h2>Notas:</h2>
+<h6> Class UserResource </h6>
 
 > Método GET findAll lista todos os usuários   
 > `ResponseEntity` encapsula toda uma estrutura que retorna response HTTP com possíveis erros e cabeçalhos  
@@ -271,17 +280,16 @@ spring.data.mongodb.uri=mongodb://localhost:27017/workshop_mongo
 > `ok()`: instância o ResponseEntity já com o código de resposta HTTP que é SUCCESS   
 > `body()`: trás no corpo da requisição a lista 
 
-
-<h2> Class UserRepository </h2>
+<h6> Class UserRepository </h6>
 
 > Faz as operações básicas como adicionar, criar, deletar, atualizar etc.     
 
-<h2> Class UserService </h2>
+<h6> Class UserService </h6>
 
 > serviço responsável por trabalhar com usuários    
 > Service conversa com o Repository
 
-<h2> Database: MongoDB </h2>
+<h6> Database: MongoDB </h6>
 
 > Para que o MongoDB reconheça a classe, devemos incluir `@Document` em cima da classe User e `@Id` logo acima do atributo id, também da classe User.  
 > A camada REST conversa com o Service   
@@ -291,18 +299,37 @@ Resource -> Service -> Repository
 O Resource chama o Service que chama o Repository
 
 
-<h2> Class Instantiation </h2>
+<h6> Class Instantiation </h6>
 
 > Nesta classe é realizada a operação de instanciação da base de dados.    
 > Criamos um subpaconte chamado Config, dentro dele foi criada a classe `Instantiation` que implementa `CommandLineRunner`.  
 
+------------
+	
+<h2> Usando adrão DTO para retornar usuários </h2>
 
-<h2> Padrão DTO </h2>
+**DTO (Data Transfer Object)**: é um objeto que tem o papel de carregar dados das entidades de forma simples, podendo inclusive "projetar" apenas alguns dados da entidade original.  
+Vantagens:
 
-> DTO (*Data Transfer Object*): é um objeto de transferência de dados, ou seja, carrega os dados das entidades de forma simples, podendo, inclusive, "projetar" apenas alguns dados da entidade original.   
+> - Otimizar o tráfego (trafegando menos dados)   
+> - Evitar que dados de interesse exclusivo do sistema fiquem sendo expostos (por exemplo: senhas, dados de auditoria como data de criação e data de atualização do objeto, etc.)
+> - Customizar os objetos trafegados conforme a necessidade de cada requisição (por exemplo: para alterar um produto, você precisa dos dados A, B e C; já para listar os produtos, eu preciso dos dados A, B e a categoria de cada produto, etc.).   
 
 
-<h2> CRUD e Métodos </h2>
+<h6>Checklist</h6>
+
+<ul>
+	<li>No subpacote dto, criar UserDTO</li>
+	<li>Em UserResource, refatorar o método findAl</li>
+</ul>
+
+<h6> Class UserResource</h6>
+
+> `listDTO` recebe a conversao de cada elemento da lista original para dto; instrução lambda que vai ser: lista original ponto stream, para transformar em uma `.stream()`, que é uma coleção compatível com as expressões **lambda**; chamar o método `.map()` que vai pegar cada objeto x da lista original e para cada objeto desse que será um usuário vamos retornar um novo `UserDTO` e passando o x como argumento; para finalizar, precisamos voltar o `.stream()` para uma lista.
+
+----------------
+
+<h2> Notas: </h2>
 
 * CREATE
 
@@ -324,19 +351,42 @@ O Resource chama o Service que chama o Repository
 > Permite que os dados sejam deletados.  
 > Método: DELETE
 
-<h2> Padrão DTO </h2>
 
-* Class UserResource
+------------
 
-> `listDTO` recebe a conversao de cada elemento da lista original para dto; instrução lambda que vai ser: lista original ponto stream, para transformar em uma `.stream()`, que é uma coleção compatível com as expressões **lambda**; chamar o método `.map()` que vai pegar cada objeto x da lista original e para cada objeto desse que será um usuário vamos retornar um novo `UserDTO` e passando o x como argumento; para finalizar, precisamos voltar o `.stream()` para uma lista.
+<h2>Obtendo usuário por ID</h2>
 
-<h2> Obter usuário por ID </h2>
 
-* subpacote: service.exception   
-* class: ObjectNotFoundException   
+```java
+import java.util.Optional;
+
+// (...)
+
+public User findById(String id) {
+	Optional<User> obj = repo.findById(id);
+	return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado!"));
+}
+```
+
+<h6>Checklist</h6>
+
+<ul>
+	<li>No subpacote service.exception, criar ObjectNotFoundException</li>
+	<li>Em UserService, implementar o método findById</li>
+	<li>Em UserResource, implementar o método findById (retornar DTO)</li>
+	<li>No subpacote resources.exception, criar as classes:
+		<ul>
+			<li>StandardError</li>
+			<li>ResourceExceptionHandler</li>
+		</ul>
+	</li>
+</ul>
+
+<h6>Notas</h6>
 
 > Criar uma exceção personalizada, para ser disparada quando for buscar o usuário por id, e o id fornecido for inexistente.   
-> `extends RuntimeExceptions`: NÃO exige que seja feito o tratamento da excecao
+
+> `extends RuntimeExceptions`: NÃO exige que seja feito o tratamento da exceção
 
 
 > Anotação `@PathVariable` indica que o `String id` é o mesmo que está sendo passado chamado dentro do método Get  
@@ -347,6 +397,54 @@ public ResponseEntity<UserDTO> findById(@PathVariable String id){
 }
 ```
 
-No subpacote resources.exception, criar as classes:
-- StandardError
-- ResourceExceptionHandler
+--------------------
+
+<h2> Inserção de usuário com POST </h2>
+
+<h6>Checklist</h6>
+
+<ul>
+	<li>Em UserService, implementar os métodos insert e fromDTO</li>
+	<li>Em UserResource, implementar o método insert</li>
+</ul>
+
+--------------------
+
+<h2> Deleção de usuário com DELETE </h2>
+
+```java
+repo.deleteById(id);
+```
+
+<h6>Checklist</h6>
+
+<ul>
+	<li>Em UserService, implementar o método delete</li>
+	<li>Em UserResource, implementar o método delete</li>
+</ul>
+
+--------------------
+
+<h2> Atualização de usuário com PUT </h2>
+
+```java
+public class UserService(){
+
+	// (...)
+
+	public User update(User obj) {
+		User newObj = findById(obj.getId());
+		updateData(newObj, obj);
+		return repo.save(newObj);
+	}
+
+}
+```
+
+<h6>Checklist</h6>
+
+<ul>
+	<li>Em UserService, implementar os métodos update e updateData</li>
+	<li>Em UserResource, implementar o método update</li>
+</ul>
+mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false
