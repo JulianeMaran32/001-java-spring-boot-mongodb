@@ -45,7 +45,7 @@ Prof. Dr. Nelio Alves
 
 <h6>Checklist Mac:</h6>
 
-* [Docs MongoDB for Mac](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
+* [Docs MongoDB for Mac](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/)
 * Instalar [brew](https://brew.sh) > executar o comando apresentado na primeira págin
 * Instalar o MongoDB: `brew install mongod``
 * Criar pasta /data/db: `sudo mkdir -p /data/d``
@@ -447,4 +447,92 @@ public class UserService(){
 	<li>Em UserService, implementar os métodos update e updateData</li>
 	<li>Em UserResource, implementar o método update</li>
 </ul>
-mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false
+
+
+mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false 
+
+--------------------
+
+<h2> Criando entity Post com User aninhado </h2>
+
+> Nota: objetos aninhados vs. referências
+
+<h6>Checklist</h6>
+
+<ul>
+	<li>Criar classe Post</li>
+	<li>Criar PostRepository</li>
+	<li>Inserir alguns posts na carga inicial da base de dados</li>
+</ul>
+
+
+--------------------
+
+<h2> Projeção dos dados do autor com DTO </h2>
+
+
+<h6>Checklist</h6>
+
+<ul>
+	<li>Criar AuthorDTO</li>
+	<li>Refatorar Post</li>
+	<li>Refatorar a carga inicial do banco de dados
+		<ul>
+			<li>IMPORTANTE: agora é preciso persistir os objetos User antes de relacionar
+			</li>
+		</ul>
+	</li>
+</ul>
+
+--------------------
+
+<h2> Referenciando os posts do usuário </h2>
+
+<h6>Checklist</h6>
+
+<ul>
+	<li>Em User, criar o atributo "posts", usando @DBRef
+		<ul>
+			<li>Sugestão: incluir o parâmetro (lazy = true)</li>
+		</ul>
+	</li>
+	<li>Refatorar a carga inicial do banco, incluindo as associações dos posts</li>
+</ul>
+
+--------------------
+
+<h2> Endpoint para retornar os posts de um usuário </h2>
+
+<h6>Checklist</h6>
+
+* Em UserResource, criar o método para retornar os posts de um dado usuário
+
+
+--------------------
+
+<h2> Obtendo um post por id </h2>
+
+<h6>Checklist</h6>
+
+* Criar PostService com o método findById    
+* Criar PostResource com método findById    
+
+--------------------
+
+<h2> Acrescentando comentários aos posts </h2>
+
+<h6>Checklist</h6>
+
+* Criar CommentDTO    
+* Em Post, incluir uma lista de CommentDTO   
+* Refatorar a carga inicial do banco de dados, incluindo alguns comentários nos posts  
+
+
+
+
+
+
+
+
+
+
