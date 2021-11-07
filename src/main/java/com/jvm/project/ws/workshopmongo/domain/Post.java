@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,16 +13,12 @@ import com.jvm.project.ws.workshopmongo.dto.AuthorDTO;
 import com.jvm.project.ws.workshopmongo.dto.CommentDTO;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
-@EqualsAndHashCode(exclude = {"date", "title", "body", "author", "comments"})
 @Document
 public class Post implements Serializable {
 
@@ -35,5 +32,34 @@ public class Post implements Serializable {
 	private AuthorDTO author;
 	
 	private List<CommentDTO> comments = new ArrayList<>();
+	
+	public Post() {
+	}
 
+	public Post(String id, Date date, String title, String body, AuthorDTO author) {
+		super();
+		this.id = id;
+		this.date = date;
+		this.title = title;
+		this.body = body;
+		this.author = author;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Post other = (Post) obj;
+		return Objects.equals(id, other.id);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+	
 }

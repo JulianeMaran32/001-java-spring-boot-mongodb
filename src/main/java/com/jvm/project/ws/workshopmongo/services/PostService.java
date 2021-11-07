@@ -17,12 +17,9 @@ public class PostService {
 	@Autowired
 	private PostRepository repo;
 	
-	public Optional<Post> findById(String id) {
-		Optional<Post> user = repo.findById(id);
-		if (user == null) {
-			throw new ObjectNotFoundException("Objeto não encontrado");
-		}
-		return user;
+	public Post findById(String id) {
+		Optional<Post> obj = repo.findById(id);
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
 	}
 	
 	public List<Post> findByTitle(String text) {
@@ -33,4 +30,5 @@ public class PostService {
 		maxDate = new Date(maxDate.getTime() + 24 * 60 * 60 * 1000);
 		return repo.fullSearch(text, minDate, maxDate);
 	}
+	
 }
