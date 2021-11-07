@@ -427,6 +427,8 @@ repo.deleteById(id);
 
 <h2> Atualização de usuário com PUT </h2>
 
+(User update with PUT)
+
 ```java
 public class UserService(){
 
@@ -448,12 +450,11 @@ public class UserService(){
 	<li>Em UserResource, implementar o método update</li>
 </ul>
 
-
-mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false 
-
 --------------------
 
 <h2> Criando entity Post com User aninhado </h2>
+
+(Creating Entity Post)
 
 > Nota: objetos aninhados vs. referências
 
@@ -470,6 +471,7 @@ mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&dire
 
 <h2> Projeção dos dados do autor com DTO </h2>
 
+(Projection of author data with DTO)
 
 <h6>Checklist</h6>
 
@@ -488,6 +490,9 @@ mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&dire
 
 <h2> Referenciando os posts do usuário </h2>
 
+(Referencing user posts)
+
+
 <h6>Checklist</h6>
 
 <ul>
@@ -503,6 +508,8 @@ mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&dire
 
 <h2> Endpoint para retornar os posts de um usuário </h2>
 
+(Endpoint to return a user's posts)
+
 <h6>Checklist</h6>
 
 * Em UserResource, criar o método para retornar os posts de um dado usuário
@@ -511,6 +518,8 @@ mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&dire
 --------------------
 
 <h2> Obtendo um post por id </h2>
+
+(Getting one post per id)
 
 <h6>Checklist</h6>
 
@@ -521,6 +530,8 @@ mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&dire
 
 <h2> Acrescentando comentários aos posts </h2>
 
+(Adding comments to posts)
+
 <h6>Checklist</h6>
 
 * Criar CommentDTO    
@@ -528,8 +539,9 @@ mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&dire
 * Refatorar a carga inicial do banco de dados, incluindo alguns comentários nos posts  
 
 
+--------------------
 
-
+<h2> Acrescentando comentários aos posts </h2>
 
 
 

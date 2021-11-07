@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +21,7 @@ import com.jvm.project.ws.workshopmongo.dto.UserDTO;
 import com.jvm.project.ws.workshopmongo.services.UserService;
 
 @RestController
-@RequestMapping(value = "/users")
+@RequestMapping("/users")
 public class UserResource {
 	
 	@Autowired
@@ -38,7 +39,7 @@ public class UserResource {
 	}
 	
 	// obter usuario por id
-	@GetMapping(value = "/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<UserDTO> findById(@PathVariable String id){
 		
 		User obj = service.findById(id);		
@@ -60,10 +61,22 @@ public class UserResource {
 			
 	}
 	
-	@DeleteMapping(value = "/{id}")
+	// deletando usuario por id
+	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable String id){
 		service.delete(id);
 		return ResponseEntity.noContent().build();
+	}
+	
+	// inserir um novo usuario
+	@PutMapping("/{id}")
+	public ResponseEntity<Void> update(@RequestBody UserDTO objDto, @PathVariable String id){
+		
+		User obj = service.fromDTO(objDto);		
+		obj.setId(id);
+		obj = service.update(obj);
+		return ResponseEntity.noContent().build();
+		
 	}
 
 }
