@@ -16,67 +16,57 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.jvm.project.ws.workshopmongo.domain.Post;
 import com.jvm.project.ws.workshopmongo.domain.User;
 import com.jvm.project.ws.workshopmongo.dto.UserDTO;
 import com.jvm.project.ws.workshopmongo.services.UserService;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping(value="/users")
 public class UserResource {
-	
+
 	@Autowired
 	private UserService service;
 	
-	// listar todos os usuarios
-	@GetMapping(value = "/users")
-	public ResponseEntity<List<UserDTO>> findAll(){
-		
+	@GetMapping
+ 	public ResponseEntity<List<UserDTO>> findAll() {
 		List<User> list = service.findAll();
-		// converte cada item da lista original em um dto
 		List<UserDTO> listDto = list.stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);
-		
 	}
-	
-	// obter usuario por id
+
 	@GetMapping("/{id}")
-	public ResponseEntity<UserDTO> findById(@PathVariable String id){
-		
-		User obj = service.findById(id);		
+ 	public ResponseEntity<UserDTO> findById(@PathVariable String id) {
+		User obj = service.findById(id);
 		return ResponseEntity.ok().body(new UserDTO(obj));
-		
 	}
-	
-	// inserir um novo usuario
+
 	@PostMapping
-	public ResponseEntity<Void> insert(@RequestBody UserDTO objDto){
-		
-		User obj = service.fromDTO(objDto);		
+ 	public ResponseEntity<Void> insert(@RequestBody UserDTO objDto) {
+		User obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}")
-				.buildAndExpand(obj.getId())
-				.toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
-			
 	}
-	
-	// deletando usuario por id
+
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> delete(@PathVariable String id){
+ 	public ResponseEntity<Void> delete(@PathVariable String id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
-	
-	// inserir um novo usuario
+
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> update(@RequestBody UserDTO objDto, @PathVariable String id){
-		
-		User obj = service.fromDTO(objDto);		
+ 	public ResponseEntity<Void> update(@RequestBody UserDTO objDto, @PathVariable String id) {
+		User obj = service.fromDTO(objDto);
 		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
-		
 	}
-
+	
+	@GetMapping("/{id}/posts")
+ 	public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+		User obj = service.findById(id);
+		return ResponseEntity.ok().body(obj.getPosts());
+	}
+	
 }

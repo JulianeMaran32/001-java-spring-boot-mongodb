@@ -7,24 +7,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.jvm.project.ws.workshopmongo.exception.ObjectNotFoundException;
+import com.jvm.project.ws.workshopmongo.services.exception.ObjectNotFoundException;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
-	
+
 	@ExceptionHandler(ObjectNotFoundException.class)
-	public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException e, HttpServletRequest request){
+	public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException e, HttpServletRequest request) {
 		
 		HttpStatus status = HttpStatus.NOT_FOUND;
-		
-		StandardError err = new StandardError(System.currentTimeMillis(), 
-				status.value(), 
-				"Não enocntrado", 
-				e.getMessage(), 
-				request.getRequestURI());
-		
+		StandardError err = new StandardError(System.currentTimeMillis(), status.value(), "Não encontrado", e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
-		
 	}
-
 }

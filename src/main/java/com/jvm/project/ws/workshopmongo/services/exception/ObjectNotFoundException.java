@@ -1,4 +1,4 @@
-package com.jvm.project.ws.workshopmongo.exception;
+package com.jvm.project.ws.workshopmongo.services.exception;
 
 public class ObjectNotFoundException extends RuntimeException {
 

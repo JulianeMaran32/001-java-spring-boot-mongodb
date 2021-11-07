@@ -8,46 +8,36 @@ import org.springframework.stereotype.Service;
 
 import com.jvm.project.ws.workshopmongo.domain.User;
 import com.jvm.project.ws.workshopmongo.dto.UserDTO;
-import com.jvm.project.ws.workshopmongo.exception.ObjectNotFoundException;
 import com.jvm.project.ws.workshopmongo.repository.UserRepository;
+import com.jvm.project.ws.workshopmongo.services.exception.ObjectNotFoundException;
 
 @Service
 public class UserService {
-	
+
 	@Autowired
-	private UserRepository repository;
+	private UserRepository repo;
 	
-	public List<User> findAll(){
-		return repository.findAll();
+	public List<User> findAll() {
+		return repo.findAll();
 	}
 	
-	// obter usuario por id
-	// GET
 	public User findById(String id) {
-		Optional<User> obj = repository.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado!"));
+		Optional<User> obj = repo.findById(id);
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
 	}
 	
-	// inserir usuario
-	// POST 
 	public User insert(User obj) {
-		return repository.insert(obj);
+		return repo.insert(obj);
 	}
 	
-	// deletar usuário 
-	// DELETE
 	public void delete(String id) {
-		repository.deleteById(id);
+		repo.deleteById(id);
 	}
 	
-	// atualizar usuário
-	// PUT
 	public User update(User obj) {
-		
 		User newObj = findById(obj.getId());
 		updateData(newObj, obj);
-		return repository.save(newObj);
-		
+		return repo.save(newObj);
 	}
 	
 	private void updateData(User newObj, User obj) {
@@ -56,10 +46,6 @@ public class UserService {
 	}
 
 	public User fromDTO(UserDTO objDto) {
-		return new User(
-				objDto.getId(), 
-				objDto.getNome(), 
-				objDto.getEmail());
-	}	
-	
+		return new User(objDto.getId(), objDto.getNome(), objDto.getEmail());
+	}
 }

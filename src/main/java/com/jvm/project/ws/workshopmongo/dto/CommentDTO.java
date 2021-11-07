@@ -1,8 +1,7 @@
 package com.jvm.project.ws.workshopmongo.dto;
 
 import java.io.Serializable;
-
-import com.jvm.project.ws.workshopmongo.domain.User;
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,18 +12,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO implements Serializable {
+public class CommentDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	
-	private String id;
-	private String nome;
-	private String email;
-	
-	public UserDTO(User obj) {
-		id = obj.getId();
-		nome = obj.getNome();
-		email = obj.getEmail();
-	}
+
+	private String text;
+	private Date date;
+	private AuthorDTO author;
 
 }
